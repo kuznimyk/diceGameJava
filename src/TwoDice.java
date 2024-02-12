@@ -78,23 +78,35 @@ public class TwoDice {
         }
     }
 
-    public static void roll() {
+    public boolean roll() {
         int randomDice1 = random.nextInt(6) ;
         int randomDice2 = random.nextInt(6) ;
+
+        if (isDoubles(randomDice1 + 1, randomDice2+1)){
+            score += (randomDice1 + 1) * 4;
+        }
+        else if(hasSingleOnes(randomDice1, randomDice2)){
+            return false;
+        }
+        else{
+            score += randomDice1 + randomDice2 + 2;
+        }
+
         char[][] dice1 = dices[randomDice1];
         char[][] dice2 = dices[randomDice2];
         toString(dice1, dice2);
+        return true;
     }
 
-    public void getValue() {
-
+    public int getValue() {
+        return score;
     }
 
-    public void isDoubles() {
-
+    public boolean isDoubles(int dice1Value, int dice2Value) {
+        return true;
     }
 
-    public void hasSingleOnes() {
-
+    public boolean hasSingleOnes(int dice1Value, int dice2Value) {
+        return false;
     }
 }

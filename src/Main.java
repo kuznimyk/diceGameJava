@@ -19,5 +19,5 @@ public class Main {
         TwoDice player = new TwoDice();
         TwoDice computer = new TwoDice();
         player.roll();
-    }
+    }   
 }
