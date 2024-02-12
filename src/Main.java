@@ -16,7 +16,8 @@ import java.util.Random;
 
 public class Main {
     public static void main(String[] args) {
-        TwoDice dices = new TwoDice();
-        dices.roll();
+        TwoDice player = new TwoDice();
+        TwoDice computer = new TwoDice();
+        player.roll();
     }
 }
