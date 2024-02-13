@@ -6,87 +6,112 @@ public class TwoDice {
     static int score;
     private static char[][][] dices;
 
+     static String dice1;
+     static String dice2;
+
+
+
     public TwoDice() {
         makeDieAsArray();
         score = 0;
         random = new Random(System.currentTimeMillis());
+        dice1 = "";
+        dice2 = "";
     }
 
     private static void makeDieAsArray() {
         dices = new char[][][]{
                 {
-                        {' ', '|', ' ', '|', ' '},
-                        {'-', '-', '-', '-', '-'},
-                        {' ', '|', 'O', '|', ' '},
-                        {'-', '-', '-', '-', '-'},
-                        {' ', '|', ' ', '|', ' '}
+
+                        {'|',' ', '|', ' ', '|', ' ','|'},
+
+                        {'|',' ', '|', 'O', '|', ' ','|'},
+
+                        {'|',' ', '|', ' ', '|', ' ','|'},
+
                 },
 
                 {
-                        {' ', '|', ' ', '|', ' '},
-                        {'-', '-', '-', '-', '-'},
-                        {'O', '|', ' ', '|', 'O'},
-                        {'-', '-', '-', '-', '-'},
-                        {' ', '|', ' ', '|', ' '}
+
+                        {'|',' ', '|', ' ', '|', ' ','|'},
+
+                        {'|','O', '|', ' ', '|', 'O','|'},
+
+                        {'|',' ', '|', ' ', '|', ' ','|'},
+
                 },
 
                 {
-                        {'O', '|', ' ', '|', ' '},
-                        {'-', '-', '-', '-', '-'},
-                        {' ', '|', 'O', '|', ' '},
-                        {'-', '-', '-', '-', '-'},
-                        {' ', '|', ' ', '|', 'O'}
+
+                        {'|','O', '|', ' ', '|', ' ','|'},
+
+                        {'|',' ', '|', 'O', '|', ' ','|'},
+
+                        {'|',' ', '|', ' ', '|', 'O','|'},
+
                 },
 
                 {
-                        {'O', '|', ' ', '|', 'O'},
-                        {'-', '-', '-', '-', '-'},
-                        {' ', '|', ' ', '|', ' '},
-                        {'-', '-', '-', '-', '-'},
-                        {'O', '|', ' ', '|', 'O'}
+
+                        {'|','O', '|', ' ', '|', 'O','|'},
+
+                        {'|',' ', '|', ' ', '|', ' ','|'},
+
+                        {'|','O', '|', ' ', '|', 'O','|'},
+
                 },
 
                 {
-                        {'O', '|', ' ', '|', 'O'},
-                        {'-', '-', '-', '-', '-'},
-                        {' ', '|', 'O', '|', ' '},
-                        {'-', '-', '-', '-', '-'},
-                        {'O', '|', ' ', '|', 'O'}
+
+                        {'|','O', '|', ' ', '|', 'O','|'},
+
+                        {'|',' ', '|', 'O', '|', ' ','|'},
+
+                        {'|','O', '|', ' ', '|', 'O','|'},
+
                 },
                 {
-                        {'O', '|', ' ', '|', 'O'},
-                        {'-', '-', '-', '-', '-'},
-                        {'O', '|', ' ', '|', 'O'},
-                        {'-', '-', '-', '-', '-'},
-                        {'O', '|', ' ', '|', 'O'}
+
+                        {'|','O', '|', ' ', '|', 'O','|'},
+
+                        {'|','O', '|', ' ', '|', 'O','|'},
+
+                        {'|','O', '|', ' ', '|', 'O','|'},
+
                 }};
     }
 
-    public static void toString(char[][] dice1, char[][] dice2) {
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 5; j++) {
-                System.out.print(dice1[i][j]);
+    private static void setDices(char[][] firstroll,char[][] secondroll){
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 7; j++) {
+                dice1 += firstroll[i][j];
             }
-            System.out.println();
+            dice1 += "\n";
         }
-        System.out.println("--------------------------");
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 5; j++) {
-                System.out.print(dice2[i][j]);
+        dice1 += "\n\n\n";
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 7; j++) {
+                dice2 += secondroll[i][j];
             }
-            System.out.println();
+            dice2 += "\n";
         }
+        dice2 += "\n\n";
+    }
+    public String toString() {
+        return dice1 + dice2;
     }
 
-    public boolean roll() {
+    public int[] roll() {
         int randomDice1 = random.nextInt(6) ;
         int randomDice2 = random.nextInt(6) ;
-
+        int[] res = new int[2];
         if (isDoubles(randomDice1 + 1, randomDice2+1)){
             score += (randomDice1 + 1) * 4;
         }
-        else if(hasSingleOnes(randomDice1, randomDice2)){
-            return false;
+        else if (hasSingleOnes(randomDice1 + 1, randomDice2 + 1)){
+            res[0] = randomDice1 + 1;
+            res[1] = randomDice2 + 1;
+            return res;
         }
         else{
             score += randomDice1 + randomDice2 + 2;
@@ -94,8 +119,8 @@ public class TwoDice {
 
         char[][] dice1 = dices[randomDice1];
         char[][] dice2 = dices[randomDice2];
-        toString(dice1, dice2);
-        return true;
+        setDices(dice1, dice2 );
+        return res;
     }
 
     public int getValue() {
