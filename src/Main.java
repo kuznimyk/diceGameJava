@@ -3,20 +3,22 @@ The purpose of the code is to ask a user whether he wants to play a game, and if
 answer is positive ask which game he wants to play. If the user does not want to play
 then print out "Do something else", if the user wants to play some other type of game 
 print "No more time to play! Back to programming"
-Mykyta Kuznietsov
-AUCSC 112 LAB
-1796090
-February 10th 2024
- */
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+Authors: Mykyta Kuznietsov, Vadim Rudenko
+Class: AUCSC 112 LAB 1H04
+ID numbers: 1796090, 1793290
+Date: Feb 13, 2024
+
+*/
+
+
 import java.util.Scanner;
 import java.util.Random;
 
 public class Main {
     public static void main(String[] args) {
         TwoDice game = new TwoDice();
+        Scanner scanner = new Scanner(System.in);
         System.out.println("================================");
         System.out.println("The Dice Game");
         System.out.println("How Much Can You Afford to Lose?");
@@ -32,7 +34,6 @@ public class Main {
         int playerScore = 0;
         int computerScore = 0;
 
-        // Game loop
         while (playerScore < 60 && computerScore < 60) {
             if (playerTurn) {
                 System.out.println("Your turn");
@@ -57,7 +58,16 @@ public class Main {
                         roundScore += (roll[0] + roll[1]) * 2;
                     } else {
                         roundScore += roll[0] + roll[1];
-                        keepRolling = false;
+                        System.out.println("Roll Again? (current score is: " + roundScore + ") Enter 'y' for yes 'n' for no:");
+                        String input = scanner.nextLine();
+                        if (input.length() > 0) {
+                            char choice = Character.toLowerCase(input.charAt(0));
+                            if (choice == 'n') {
+                                keepRolling = false;
+                            } else if (choice != 'y') {
+                                System.out.println("Sorry did not recognize your response");
+                            }
+                        }
                     }
                 }
 
@@ -65,7 +75,6 @@ public class Main {
                 System.out.println("Score: Player " + playerScore + "; Computer " + computerScore);
                 playerTurn = false;
             } else {
-
                 System.out.println("Computer's turn");
                 int computerRoll = game.roll()[0] + game.roll()[1];
                 if (computerRoll == 2) {
@@ -78,7 +87,6 @@ public class Main {
                 playerTurn = true;
             }
 
-
             if (playerScore >= 60) {
                 System.out.println("Congratulations! You win!");
                 break;
@@ -89,5 +97,6 @@ public class Main {
         }
 
         System.out.println("Game Over.");
+        scanner.close();
     }
 }
