@@ -16,7 +16,8 @@ import java.util.Random;
 
 public class Main {
     public static void main(String[] args) {
-        TwoDice game = new TwoDice();
+        TwoDice player = new TwoDice();
+        TwoDice computer = new TwoDice();
         System.out.println("================================");
         System.out.println("The Dice Game");
         System.out.println("How Much Can You Afford to Lose?");
@@ -33,7 +34,7 @@ public class Main {
         int computerScore = 0;
 
         // Game loop
-        while (playerScore < 60 && computerScore < 60) {
+        while (player.getValue() < 60 && computer.getValue() < 60) {
             if (playerTurn) {
                 System.out.println("Your turn");
                 boolean keepRolling = true;
@@ -41,18 +42,18 @@ public class Main {
 
                 while (keepRolling) {
                     System.out.println("Rolling...");
-                    int[] roll = game.roll();
-                    System.out.println(game.toString());
+                    int[] roll = player.roll();
+                    System.out.println(player);
 
                     if (roll[0] == 1 && roll[1] == 1) {
                         System.out.println("OH NO...Snake eyes! You lost it all!");
                         playerScore = 0;
                         keepRolling = false;
-                    } else if (game.hasSingleOnes(roll[0], roll[1])) {
+                    } else if (player.hasSingleOnes(roll[0], roll[1])) {
                         System.out.println("A single one is not good. You lost the round's points.");
                         roundScore = 0;
                         keepRolling = false;
-                    } else if (game.isDoubles(roll[0], roll[1])) {
+                    } else if (player.isDoubles(roll[0], roll[1])) {
                         System.out.println("Doubles! Roll again.");
                         roundScore += (roll[0] + roll[1]) * 2;
                     } else {
@@ -67,12 +68,13 @@ public class Main {
             } else {
 
                 System.out.println("Computer's turn");
-                int computerRoll = game.roll()[0] + game.roll()[1];
-                if (computerRoll == 2) {
+                int[] computerRoll = computer.roll();
+                System.out.println(computer);
+                if (computerRoll[0] == 2) {
                     computerScore = 0;
                     System.out.println("Computer rolled snake eyes and lost all points!");
                 } else {
-                    computerScore += computerRoll;
+                    computerScore += computerRoll[0] + computerRoll[1];
                 }
                 System.out.println("Score: Player " + playerScore + "; Computer " + computerScore);
                 playerTurn = true;
