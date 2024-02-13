@@ -1,15 +1,12 @@
 import java.lang.Math;
 import java.util.Random;
+
 public class TwoDice {
-    // Create arrays to represent each number on a standard dice
-    static Random random;
-    static int score;
+    private static Random random;
+    private static int score;
     private static char[][][] dices;
-
-     static String dice1;
-     static String dice2;
-
-
+    private static String dice1;
+    private static String dice2;
 
     public TwoDice() {
         makeDieAsArray();
@@ -20,106 +17,77 @@ public class TwoDice {
     }
 
     private static void makeDieAsArray() {
+
         dices = new char[][][]{
+                // Dice face 1
                 {
-
-                        {'|',' ', '|', ' ', '|', ' ','|'},
-
-                        {'|',' ', '|', 'O', '|', ' ','|'},
-
-                        {'|',' ', '|', ' ', '|', ' ','|'},
-
+                        {'|', ' ', '|', ' ', '|', ' ', '|'},
+                        {'|', ' ', '|', 'O', '|', ' ', '|'},
+                        {'|', ' ', '|', ' ', '|', ' ', '|'},
                 },
-
+                // Dice face 2
                 {
-
-                        {'|',' ', '|', ' ', '|', ' ','|'},
-
-                        {'|','O', '|', ' ', '|', 'O','|'},
-
-                        {'|',' ', '|', ' ', '|', ' ','|'},
-
+                        {'|', ' ', '|', ' ', '|', ' ', '|'},
+                        {'|', 'O', '|', ' ', '|', 'O', '|'},
+                        {'|', ' ', '|', ' ', '|', ' ', '|'},
                 },
-
+                // Dice face 3
                 {
-
-                        {'|','O', '|', ' ', '|', ' ','|'},
-
-                        {'|',' ', '|', 'O', '|', ' ','|'},
-
-                        {'|',' ', '|', ' ', '|', 'O','|'},
-
+                        {'|', 'O', '|', ' ', '|', ' ', '|'},
+                        {'|', ' ', '|', 'O', '|', ' ', '|'},
+                        {'|', ' ', '|', ' ', '|', 'O', '|'},
                 },
-
+                // Dice face 4
                 {
-
-                        {'|','O', '|', ' ', '|', 'O','|'},
-
-                        {'|',' ', '|', ' ', '|', ' ','|'},
-
-                        {'|','O', '|', ' ', '|', 'O','|'},
-
+                        {'|', 'O', '|', ' ', '|', 'O', '|'},
+                        {'|', ' ', '|', ' ', '|', ' ', '|'},
+                        {'|', 'O', '|', ' ', '|', 'O', '|'},
                 },
-
+                // Dice face 5
                 {
-
-                        {'|','O', '|', ' ', '|', 'O','|'},
-
-                        {'|',' ', '|', 'O', '|', ' ','|'},
-
-                        {'|','O', '|', ' ', '|', 'O','|'},
-
+                        {'|', 'O', '|', ' ', '|', 'O', '|'},
+                        {'|', ' ', '|', 'O', '|', ' ', '|'},
+                        {'|', 'O', '|', ' ', '|', 'O', '|'},
                 },
+                // Dice face 6
                 {
-
-                        {'|','O', '|', ' ', '|', 'O','|'},
-
-                        {'|','O', '|', ' ', '|', 'O','|'},
-
-                        {'|','O', '|', ' ', '|', 'O','|'},
-
-                }};
+                        {'|', 'O', '|', ' ', '|', 'O', '|'},
+                        {'|', 'O', '|', ' ', '|', 'O', '|'},
+                        {'|', 'O', '|', ' ', '|', 'O', '|'},
+                }
+        };
     }
 
-    private static void setDices(char[][] firstroll,char[][] secondroll){
+    private static void setDices(char[][] firstRoll, char[][] secondRoll) {
+        dice1 = dice2 = "";
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 7; j++) {
-                dice1 += firstroll[i][j];
+                dice1 += firstRoll[i][j];
+                dice2 += secondRoll[i][j];
             }
             dice1 += "\n";
+            dice2 += (i < 2) ? "\n" : "";
         }
-        dice1 += "\n\n\n";
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 7; j++) {
-                dice2 += secondroll[i][j];
-            }
-            dice2 += "\n";
-        }
-        dice2 += "\n\n";
     }
+
     public String toString() {
-        return dice1 + dice2;
+        return dice1 + "\n\n" + dice2;
     }
 
     public int[] roll() {
-        int randomDice1 = random.nextInt(6) ;
-        int randomDice2 = random.nextInt(6) ;
-        int[] res = new int[2];
-        if (isDoubles(randomDice1 + 1, randomDice2+1)){
+        int randomDice1 = random.nextInt(6);
+        int randomDice2 = random.nextInt(6);
+        int[] res = {randomDice1 + 1, randomDice2 + 1};
+
+        if (isDoubles(res[0], res[1])) {
             score += (randomDice1 + 1) * 4;
-        }
-        else if (hasSingleOnes(randomDice1 + 1, randomDice2 + 1)){
-            res[0] = randomDice1 + 1;
-            res[1] = randomDice2 + 1;
-            return res;
-        }
-        else{
+        } else if (hasSingleOnes(res[0], res[1])) {
+
+        } else {
             score += randomDice1 + randomDice2 + 2;
         }
 
-        char[][] dice1 = dices[randomDice1];
-        char[][] dice2 = dices[randomDice2];
-        setDices(dice1, dice2 );
+        setDices(dices[randomDice1], dices[randomDice2]);
         return res;
     }
 
@@ -128,10 +96,10 @@ public class TwoDice {
     }
 
     public boolean isDoubles(int dice1Value, int dice2Value) {
-        return true;
+        return dice1Value == dice2Value;
     }
 
     public boolean hasSingleOnes(int dice1Value, int dice2Value) {
-        return false;
+        return (dice1Value == 1 && dice2Value != 1) || (dice1Value != 1 && dice2Value == 1);
     }
 }
