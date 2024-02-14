@@ -1,16 +1,37 @@
 /*
-The purpose of the code is to ask a user whether he wants to play a game, and if the
-answer is positive ask which game he wants to play. If the user does not want to play
-then print out "Do something else", if the user wants to play some other type of game 
-print "No more time to play! Back to programming"
-Mykyta Kuznietsov
-AUCSC 112 LAB
-1796090
-February 10th 2024
- */
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+                                                Ý Æ Ã-Ø Œ ¿
+
+Code description:
+    The purpose of the code is to include the user in making decisions about how to play the game. It asks the user
+    whether they would like to play the game first. If the answer is yes, it asks what kind of game the user is most
+    interested in. On the other hand, in the event that the user chooses not to participate, it boldly recommends,
+    "Think about doing something else." When the user wants to switch to a different game, it firmly suggests, "Game
+    time is up! Come back to programming, please."
+
+Authors:
+    * Mykyta Kuznietsov
+    * Vadim Rudenko
+
+Class:
+    * AUCSC 112 LAB 1H04
+
+ID numbers:
+    * 1796900
+    * 1793290
+
+Date:
+    * 13 Feb, 2024
+
+Task spreading:
+    * File TwoDice.java:
+         Mykyta, except for getValue(), isDoubles(), hasSingleOnes() methods
+    * File Main.java:
+         Vadim, except for minor code fixing
+
+*/
+
+
 import java.util.Scanner;
 import java.util.Random;
 
