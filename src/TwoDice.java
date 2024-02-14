@@ -12,6 +12,8 @@ public class TwoDice {
     private  int score;
     static String dicesOutput;
 
+
+    //constructor to intialize variables above
     public TwoDice() {
         makeDieAsArray();
         score = 0;
@@ -19,6 +21,7 @@ public class TwoDice {
         dicesOutput = "";
     }
 
+    //function that stores dices in char form, value of the dice = index of the dice + 1
     private static void makeDieAsArray() {
 
         dices = new char[][][]{
@@ -61,6 +64,7 @@ public class TwoDice {
         };
     }
 
+    //turns the arrays of the character into single string which then is easier to print out
     private void setDices(char[][] firstRoll, char[][] secondRoll) {
         dicesOutput = "";
         for (int i = 0; i < 3; i++) {
@@ -77,15 +81,20 @@ public class TwoDice {
 
     }
 
+    //ovveriding the string class so the output is the dices
     public String toString() {
         return dicesOutput;
     }
+
+
+    //function roll that rolls the dices, get random value from 1 to 6
 
     public int[] roll() {
         int randomDice1 = random.nextInt(6);
         int randomDice2 = random.nextInt(6);
         int[] res = {randomDice1 + 1, randomDice2 + 1};
 
+        //checks for doubles or one on dice and adds up to the total score
         if (isDoubles(res[0], res[1])) {
             score += (randomDice1 + 1) * 4;
         } else if (hasSingleOnes(res[0], res[1])) {
@@ -93,11 +102,12 @@ public class TwoDice {
         } else {
             score += randomDice1 + randomDice2 + 2;
         }
-
+        //sends the numbers into function that will convert the numbers into the output in console
         setDices(dices[randomDice1], dices[randomDice2]);
         return res;
     }
 
+    //returns the score of the current player
     public int getValue() {
         return score;
     }
