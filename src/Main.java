@@ -84,7 +84,7 @@ public class Main {
                     if (playerTurn) {
                         System.out.println("Do you want to roll agian?y/n");
                         String rollagain = keyboard.next();
-                        if (rollagain.equals("y")) {
+                        if (rollagain.charAt(0) == 'y' || rollagain.charAt(0) == 'Y') {
                             continue;
                         } else {
                             playerTurn = false;
