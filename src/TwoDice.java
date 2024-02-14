@@ -1,3 +1,8 @@
+//Authors: Mykyta Kuznietsov, Vadim Rudenko
+//Class: AUCSC 112 LAB 1H04
+//ID numbers: 1796090, 1793290
+//Date: Feb 13, 2024
+
 import java.lang.Math;
 import java.util.Random;
 
