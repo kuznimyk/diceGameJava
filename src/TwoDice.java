@@ -8,17 +8,15 @@ import java.util.Random;
 
 public class TwoDice {
     private static Random random;
-    private static int score;
     private static char[][][] dices;
-    private static String dice1;
-    private static String dice2;
+    private  int score;
+    static String dicesOutput;
 
     public TwoDice() {
         makeDieAsArray();
         score = 0;
         random = new Random(System.currentTimeMillis());
-        dice1 = "";
-        dice2 = "";
+        dicesOutput = "";
     }
 
     private static void makeDieAsArray() {
@@ -63,20 +61,24 @@ public class TwoDice {
         };
     }
 
-    private static void setDices(char[][] firstRoll, char[][] secondRoll) {
-        dice1 = dice2 = "";
+    private void setDices(char[][] firstRoll, char[][] secondRoll) {
+        dicesOutput = "";
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 7; j++) {
-                dice1 += firstRoll[i][j];
-                dice2 += secondRoll[i][j];
+                dicesOutput += firstRoll[i][j];
             }
-            dice1 += "\n";
-            dice2 += (i < 2) ? "\n" : "";
+            dicesOutput += "\t\t";
+            for (int j = 0; j < 7;j++){
+                dicesOutput += secondRoll[i][j];
+            }
+            dicesOutput += "\n";
         }
+        dicesOutput += "\n\n";
+
     }
 
     public String toString() {
-        return dice1 + "\n\n" + dice2;
+        return dicesOutput;
     }
 
     public int[] roll() {
