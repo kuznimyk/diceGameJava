@@ -1,8 +1,3 @@
-//Authors: Mykyta Kuznietsov, Vadim Rudenko
-//Class: AUCSC 112 LAB 1H04
-//ID numbers: 1796090, 1793290
-//Date: Feb 13, 2024
-
 import java.lang.Math;
 import java.util.Random;
 
@@ -112,10 +107,14 @@ public class TwoDice {
         return score;
     }
 
+
+    //function that checks dices for same double values
     public boolean isDoubles(int dice1Value, int dice2Value) {
         return dice1Value == dice2Value;
     }
 
+
+    //function that checks if one of the dices rolled one
     public boolean hasSingleOnes(int dice1Value, int dice2Value) {
         return (dice1Value == 1 && dice2Value != 1) || (dice1Value != 1 && dice2Value == 1);
     }
